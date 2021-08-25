@@ -11,6 +11,7 @@ let bot = new Client({
       type: 'LISTENING'
     }
   }
+  
 });
 
 bot.on('ready', () => console.log(`Logged in as ${bot.user.tag}.`));
