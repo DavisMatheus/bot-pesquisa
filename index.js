@@ -32,10 +32,14 @@ bot.on('message', async (message) => {
         if (args.length > 0) message.channel.send(args.join(' '));
         else
           message.reply(
-            'You did not send a message to repeat, cancelling command.'
+            'Você não enviou uma mensagem para repetir, cancelando o comando.'
           );
         break;
       case 'clear':
+        if (!message.member.permissions.has('MANAGE_MESSAGES'))
+          return message.reply(
+            'você não tem permissão de `Gerenciar Mensagens` para usar esse comando'
+          );
         const deleteCount = parseInt(args[0], 10);
         if (!deleteCount || deleteCount < 1 || deleteCount > 99)
           return message.reply(
@@ -49,10 +53,10 @@ bot.on('message', async (message) => {
       /* Unless you know what you're doing, don't change this command. */
       case 'help':
         let embed = new MessageEmbed()
-          .setTitle('HELP MENU')
+          .setTitle('MENU DE AJUDA')
           .setColor('GREEN')
           .setFooter(
-            `Requested by: ${
+            `Requisitado pelo corno: ${
               message.member
                 ? message.member.displayName
                 : message.author.username
@@ -106,7 +110,7 @@ bot.on('message', async (message) => {
             embed
               .setColor('RED')
               .setDescription(
-                'This command does not exist. Please use the help command without specifying any commands to list them all.'
+                'Este comando não existe. Use o comando -help para listá-los.'
               );
           }
         }
